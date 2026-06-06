@@ -1,0 +1,92 @@
+﻿/* ============================================================
+   grid.css — 12 Column Grid System
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--side-margin);
+  padding-right: var(--side-margin);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gutter);
+}
+
+/* Column span utilities */
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-11 { grid-column: span 11; }
+.col-12 { grid-column: span 12; }
+
+/* Section wrapper */
+.section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.section--full {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Hairline divider */
+.hairline {
+  width: 100%;
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* Section label (mono, top) */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-text-mute);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* Tablet responsive */
+@media (max-width: 1279px) {
+  :root {
+    --side-margin: 24px;
+    --gutter: 16px;
+  }
+
+  .col-6 { grid-column: span 12; }
+  .col-5 { grid-column: span 12; }
+  .col-7 { grid-column: span 12; }
+}
+
+/* Mobile warning */
+@media (max-width: 767px) {
+  body {
+    overflow: hidden;
+  }
+}

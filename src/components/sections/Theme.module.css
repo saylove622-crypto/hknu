@@ -1,0 +1,267 @@
+/* ══════════════════════════════════════════════════
+   Theme — Broken Grid (no-overlap 2-col) + Parallax
+   ══════════════════════════════════════════════════ */
+
+.section {
+  position: relative;
+  background: linear-gradient(180deg,
+    var(--color-night)    0%,
+    var(--color-midnight) 22%,
+    var(--color-magenta)  50%,
+    var(--color-midnight) 78%,
+    var(--color-night)   100%
+  );
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+/* ── 배경 사진 ──────────────────────────── */
+.bgImageWrap {
+  position: absolute;
+  inset: -15%;   /* 패럴렉스 여유분 */
+  z-index: 0;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.bgImageEl {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  /* 투명도 낮춤 (분위기용) */
+  opacity: 0.13;
+  filter: saturate(0.6) brightness(0.8);
+}
+
+/* ── 별 캔버스 ──────────────────────────── */
+.starCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.55;
+}
+
+/* ── 컨테이너 ───────────────────────────── */
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 var(--side-margin);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+/* ── 섹션 헤더 ──────────────────────────── */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  flex-shrink: 0;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+.sectionLine {
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+
+.sectionNum {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.025em;
+  color: var(--color-text-mute);
+  opacity: 0.4;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── 챕터 목록 ──────────────────────────── */
+.chapters {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 챕터 — 2열 그리드, 겹침 없음 ─────── */
+.chapter {
+  position: relative;
+  display: grid;
+  /* 번호 열 45% : 콘텐츠 열 55% */
+  grid-template-columns: minmax(0, 45%) minmax(0, 55%);
+  grid-template-rows: auto;
+  align-items: center;
+  min-height: 480px;
+  padding: 80px 0;
+}
+
+/* 짝수 챕터: 번호 오른쪽, 콘텐츠 왼쪽 */
+.chapterFlip {
+  grid-template-columns: minmax(0, 55%) minmax(0, 45%);
+}
+
+/* ── 번호 칸 (overflow:hidden으로 클립) ── */
+.numCol {
+  /* 기본: 첫 번째 열 */
+  grid-column: 1;
+  grid-row: 1;
+  overflow: hidden;   /* ★ 큰 숫자가 콘텐츠 칸으로 넘어가지 않음 */
+  position: relative;
+  height: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 짝수 챕터에서 번호 칸은 두 번째 열 */
+.chapterFlip .numCol {
+  grid-column: 2;
+}
+
+/* ── 콘텐츠 칸 ──────────────────────────── */
+.contentCol {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0 var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  z-index: 1;
+}
+
+.chapterFlip .contentCol {
+  grid-column: 1;
+}
+
+/* ── 챕터 번호 (대형, numCol 내에서 클립됨) ─ */
+.chapterNumber {
+  font-family: var(--font-mono);
+  /* numCol이 45% ≈ 600px이므로 vw 기반 크기 */
+  font-size: clamp(100px, 18vw, 260px);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+  opacity: 0.07;
+  line-height: 1;
+  user-select: none;
+  will-change: transform;
+  /* 브로큰 그리드: 칸 밖으로 비어져 나오려 하지만 overflow:hidden으로 클립 */
+  white-space: nowrap;
+}
+
+/* ── 콘텐츠 텍스트 ──────────────────────── */
+.chapterTitleEn {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  opacity: 0.65;
+  will-change: transform, opacity;
+  white-space: nowrap;
+}
+
+.chapterTitle {
+  font-family: var(--font-display-kr);
+  font-size: var(--text-chapter);
+  font-weight: 300;
+  color: var(--color-text-primary);
+  letter-spacing: -0.08em;
+  will-change: transform, opacity;
+  white-space: nowrap;   /* 소제목 줄바꿈 방지 */
+}
+
+.chapterDivider {
+  width: 36px;
+  height: 1px;
+  background: rgba(79, 195, 247, 0.4);
+  flex-shrink: 0;
+}
+
+.chapterQuote {
+  font-family: var(--font-display-en);
+  font-size: clamp(13px, 1.1vw, 17px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-mute);
+  letter-spacing: -0.05em;
+  line-height: var(--leading-loose);
+  border: none;
+  margin: 0;
+  padding: 0;
+  will-change: transform, opacity;
+}
+
+.chapterDesc {
+  font-family: var(--font-body-kr);
+  font-size: var(--text-body);
+  font-weight: 300;
+  line-height: var(--leading-loose);
+  color: var(--color-text-mute);
+  opacity: 0.7;
+  will-change: transform, opacity;
+}
+
+/* ── 챕터 구분선 ─────────────────────────── */
+.chapterSeparator {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent,
+    var(--color-line) 30%,
+    var(--color-line) 70%,
+    transparent
+  );
+}
+
+/* ── 반응형 ─────────────────────────────── */
+@media (max-width: 1279px) {
+  .chapter,
+  .chapterFlip {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 400px;
+    padding: 60px 0;
+  }
+
+  .chapterTitle,
+  .chapterTitleEn {
+    white-space: normal;
+  }
+
+  .chapterNumber {
+    font-size: clamp(80px, 14vw, 180px);
+  }
+
+  .contentCol {
+    padding: 0 var(--space-lg);
+  }
+}
+
+/* ── 패럴렉스 래퍼 ──────────────────────── */
+.enWrap,
+.titleWrap,
+.quoteWrap {
+  display: block;
+  width: 100%;
+  will-change: transform;
+}

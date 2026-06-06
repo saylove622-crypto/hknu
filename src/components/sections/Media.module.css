@@ -1,0 +1,237 @@
+﻿.section {
+  position: relative;
+  background: var(--color-night);
+  padding: 80px var(--side-margin);
+}
+
+.container {
+  max-width: var(--content-max);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* 섹션 헤더 */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.sectionLine {
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+
+.sectionNum {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  color: var(--color-text-mute);
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+/* 미디어 목록 (모바일/태블릿: 세로 정렬) */
+.mediaList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  width: 100%;
+  align-items: center;
+}
+
+/* 미디어 아이템 래퍼 */
+.mediaItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+/* 미디어 라벨 */
+.mediaLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-text-mute);
+  opacity: 0.5;
+}
+
+/* 미디어 블록 */
+.mediaBlock {
+  position: relative;
+  width: 100%;
+  display: block;
+  background: var(--color-midnight);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+/* 포스터(첫번째) 모바일 비율 및 크기 */
+.mediaItem:nth-child(1) .mediaBlock {
+  aspect-ratio: 724/1024;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* 모션(두번째) 모바일 비율 및 크기 */
+.mediaItem:nth-child(2) .mediaBlock {
+  aspect-ratio: 796/801;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* 트레일러(세번째) 모바일 비율 및 크기 */
+.mediaItem:nth-child(3) .mediaBlock {
+  aspect-ratio: 1024/570;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* 데스크톱 스타일 (1024px 이상) */
+@media (min-width: 1024px) {
+  .section {
+    height: 700px;
+    padding: 0 var(--side-margin);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    gap: var(--space-lg);
+  }
+
+  .mediaList {
+    display: grid;
+    grid-template-columns: 0.707fr 0.994fr 1.797fr;
+    gap: var(--gutter);
+    align-items: start;
+    width: 100%;
+  }
+
+  .mediaBlock {
+    width: 100%;
+  }
+
+  /* 데스크톱 포스터 블록 크기 및 여백 초기화 */
+  .mediaItem:nth-child(1) .mediaBlock {
+    aspect-ratio: 724/1024;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* 데스크톱 모션 블록 크기 및 여백 초기화 */
+  .mediaItem:nth-child(2) .mediaBlock {
+    aspect-ratio: 796/801;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* 데스크톱 트레일러 블록 크기 및 여백 초기화 */
+  .mediaItem:nth-child(3) .mediaBlock {
+    aspect-ratio: 1024/570;
+    max-width: none;
+    margin: 0;
+  }
+}
+
+.mediaBlockLink {
+  cursor: none;
+}
+
+/* hover 시 glow 프레임 */
+.mediaBlock:hover .hoverFrame {
+  opacity: 1;
+}
+
+.mediaBlock:hover .mediaPlaceholder {
+  filter: brightness(1.1);
+}
+
+/* Hover 프레임 오버레이 */
+.hoverFrame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(79, 195, 247, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-shadow:
+    inset 0 0 20px rgba(79, 195, 247, 0.06),
+    0 0 20px rgba(79, 195, 247, 0.1);
+}
+
+/* Placeholder */
+.mediaPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0A0E2A 0%, #1B1547 100%);
+  transition: filter 0.3s ease;
+}
+
+.placeholderDim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(10, 14, 42, 0.6) 100%);
+}
+
+.placeholderText {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(79, 195, 247, 0.25);
+  border: 1px dashed rgba(79, 195, 247, 0.12);
+  padding: 8px 16px;
+}
+
+/* Play 오버레이 */
+.playOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.playIcon {
+  width: 56px;
+  height: 56px;
+  color: rgba(245, 240, 232, 0.6);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.mediaBlock:hover .playIcon {
+  color: var(--color-glow-blue);
+  transform: scale(1.1);
+}
+
+.mediaImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}

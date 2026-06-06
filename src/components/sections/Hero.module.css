@@ -1,0 +1,212 @@
+/* ════════════════════════════════════════════════
+   Hero — 3-Layer Zoom Parallax + Cinematic Quotes
+   ════════════════════════════════════════════════ */
+
+.section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* 다른 섹션들과 동일한 메인 그라디언트를 최하위 베이스로 */
+  background: linear-gradient(180deg,
+    var(--color-night)    0%,
+    var(--color-midnight) 25%,
+    var(--color-magenta)  55%,
+    var(--color-midnight) 80%,
+    var(--color-night)   100%
+  );
+}
+
+/* ── 최하위: 메인 사이트 색 그라디언트 (다른 섹션들과 동일) ── */
+.bgBase {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg,
+    var(--color-night)    0%,
+    var(--color-midnight) 25%,
+    var(--color-magenta)  55%,
+    var(--color-midnight) 80%,
+    var(--color-night)   100%
+  );
+  pointer-events: none;
+}
+
+/* ── 레이어 1: 배경 이미지 ───────────────────── */
+.bgLayer {
+  position: absolute;
+  inset: -8%;     /* 줌 여유분 */
+  transform-origin: center center;
+  will-change: transform;
+  z-index: 1;
+  opacity: 0.82;  /* 살짝 투명해 그라디언트가 비침 */
+}
+
+.bgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* 컬러 글로우 오버레이 — 이미지 위에 덮어 분위기 강화 */
+.bgGlow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 65%, rgba(79, 195, 247, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 25%, rgba(107, 30, 92, 0.12) 0%, transparent 50%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* 하단 → 섹션 배경색으로 자연스럽게 블렌드 */
+.bgFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(to bottom, transparent, #0A0E2A);
+  pointer-events: none;
+}
+
+/* ── 레이어 2: 텍스트 콘텐츠 ────────────────── */
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.title {
+  font-family: var(--font-display-kr);
+  font-size: var(--text-hero);
+  font-weight: 200;
+  letter-spacing: -0.09em;
+  color: var(--color-text-primary);
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  gap: 0.02em;
+  margin-bottom: var(--space-md);
+  text-shadow:
+    0 0 60px rgba(79, 195, 247, 0.22),
+    0 2px 40px rgba(0, 0, 0, 0.7);
+}
+
+.char  { display: inline-block; will-change: transform, opacity; }
+.space { width: 0.28em; }
+
+/* 부제 — 문해모노체, 자간 -0.015em */
+.subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+  will-change: opacity;
+}
+
+/* 스크롤 힌트 */
+.scrollHint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-xl);
+  animation: scrollBounce 2.2s ease-in-out infinite;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, transparent, rgba(79, 195, 247, 0.7), transparent);
+}
+
+.scrollText {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(79, 195, 247, 0.6);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0);   opacity: 0.6; }
+  50%       { transform: translateY(7px); opacity: 1;   }
+}
+
+/* ── 레이어 3: 전경 식물 ─────────────────────── */
+.fgLayer {
+  position: absolute;
+  inset: -6%;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.fgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+
+/* ── 레이어 4: 시네마틱 인용구 오버레이 ─────── */
+.quoteOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  /* 어두운 오버레이 */
+  background: rgba(5, 8, 20, 0.88);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* 각 인용구 — 겹쳐서 절대 위치, GSAP으로 순서 제어 */
+.quoteText {
+  position: absolute;
+  text-align: center;
+  font-family: var(--font-body-kr);
+  font-size: clamp(15px, 1.35vw, 20px);
+  font-weight: 300;
+  line-height: 2.0;
+  color: rgba(245, 240, 232, 0.88);
+  letter-spacing: -0.05em;
+  max-width: 640px;
+  padding: 0 var(--side-margin);
+  /* 줄바꿈 처리 */
+  white-space: pre-line;
+  will-change: transform, opacity;
+}
+
+/* ── 섹션 인디케이터 ──────────────────────────── */
+.indicator {
+  position: absolute;
+  bottom: var(--space-lg);
+  right: var(--side-margin);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.38);
+  z-index: 4;
+  will-change: opacity;
+}
+
+.indicatorDivider { opacity: 0.35; }

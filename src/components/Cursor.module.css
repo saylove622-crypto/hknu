@@ -1,0 +1,44 @@
+.cursorRoot {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4FC3F7;
+  box-shadow:
+    0 0 8px rgba(79, 195, 247, 0.8),
+    0 0 20px rgba(79, 195, 247, 0.4);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.coreHover {
+  width: 15px;
+  height: 15px;
+  background: rgba(79, 195, 247, 0.3);
+  border: 1.5px solid #4FC3F7;
+  box-shadow:
+    0 0 12px rgba(79, 195, 247, 0.9),
+    0 0 32px rgba(79, 195, 247, 0.5);
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: #4FC3F7;
+  will-change: transform, opacity;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(79, 195, 247, 0.6);
+  transition: width 0.15s ease, height 0.15s ease;
+}

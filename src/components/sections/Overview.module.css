@@ -1,0 +1,220 @@
+.section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, var(--color-night) 0%, var(--color-midnight) 50%, var(--color-night) 100%);
+  padding: 120px var(--side-margin);
+}
+
+.container {
+  max-width: var(--content-max);
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: calc(var(--gutter) * 3);
+  align-items: center;
+}
+
+/* === 책 영역 === */
+.bookSide {
+  display: flex;
+  justify-content: center;
+}
+
+.bookInner {
+  width: 100%;
+  max-width: 340px;
+  height: 480px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.bookPlaceholder {
+  position: relative;
+  width: 300px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookCover {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #1B1547 0%,
+    #0A0E2A 30%,
+    #6B1E5C 60%,
+    #1B1547 100%
+  );
+  border: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 빛 반사 효과 */
+.bookCoverSheen {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(79, 195, 247, 0.04) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(79, 195, 247, 0.04) 55%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.bookCoverTitle {
+  font-family: var(--font-display-kr);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--color-text-primary);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.bookCoverAuthor {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: -0.025em;
+  color: var(--color-text-mute);
+  text-transform: uppercase;
+}
+
+.bookSpine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: rgba(27, 21, 71, 0.8);
+  border-right: 1px solid var(--color-line);
+}
+
+.bookLabel {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: -0.025em;
+  color: rgba(79, 195, 247, 0.3);
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px dashed rgba(79, 195, 247, 0.15);
+  padding: 4px 8px;
+}
+
+/* === 텍스트 영역 === */
+.textSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* 라벨 + 라인 */
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  overflow: hidden;
+}
+
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.sectionLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-glow-blue), transparent);
+  transform-origin: left center;
+}
+
+/* 본문 */
+.body {
+  font-family: var(--font-body-kr);
+  font-size: var(--text-body-lg);
+  font-weight: 300;
+  line-height: var(--leading-loose);
+  color: var(--color-text-primary);
+  max-width: 480px;
+}
+
+/* 해시태그 */
+.tags {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: -0.025em;
+  color: var(--color-text-mute);
+}
+
+.tagDivider {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--color-line-bright);
+}
+
+/* 메타 */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--color-text-mute);
+  opacity: 0.5;
+}
+
+.metaDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-text-mute);
+  opacity: 0.5;
+}
+
+@media (max-width: 1279px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .bookSide {
+    order: 2;
+    margin-top: var(--space-xl);
+  }
+  .textSide { order: 1; }
+}

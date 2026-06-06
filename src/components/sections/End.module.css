@@ -1,0 +1,164 @@
+﻿.section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-night);
+  overflow: hidden;
+  padding: var(--space-2xl) var(--side-margin);
+}
+
+/* 배경 glow — hero 잔향 */
+.bgGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(79, 195, 247, 0.06) 0%,
+    rgba(107, 30, 92, 0.04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.bgNoise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.02;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* 콘텐츠 */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+  will-change: transform, opacity;
+}
+
+/* NOW AVAILABLE */
+.available {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  opacity: 0.6;
+  margin-bottom: var(--space-xs);
+  animation: glowText 4s ease-in-out infinite;
+}
+
+/* 제목 */
+.title {
+  font-family: var(--font-display-kr);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 200;
+  letter-spacing: -0.1em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.titleEn {
+  font-family: var(--font-display-en);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-mute);
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  margin-top: var(--space-xs);
+}
+
+/* 구분선 */
+.divider {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--color-line-bright), transparent);
+  margin: var(--space-lg) auto;
+}
+
+/* CTA 버튼 */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 16px 40px;
+  border: 1px solid var(--color-line-bright);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: none;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-glow-blue);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cta:hover {
+  border-color: var(--color-glow-blue);
+  color: var(--color-glow-blue);
+  box-shadow:
+    0 0 16px rgba(79, 195, 247, 0.2),
+    inset 0 0 16px rgba(79, 195, 247, 0.04);
+}
+
+.ctaArrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-snappy);
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* 메타 */
+.meta {
+  margin-top: var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-text-mute);
+  opacity: 0.3;
+}
+
+/* 크레딧 */
+.credit {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: -0.015em;
+  color: var(--color-text-mute);
+  opacity: 0.2;
+  white-space: nowrap;
+}
