@@ -8,10 +8,11 @@ export function getAssetPath(path) {
   }
   
   const isProd = process.env.NODE_ENV === 'production';
+  const isVercel = process.env.VERCEL === '1';
   const basePath = '/hknu';
   
-  // 배포 모드(production)이고 '/'로 시작하고 '/hknu'로 시작하지 않는 로컬 경로인 경우 basePath 추가
-  if (isProd && path.startsWith('/') && !path.startsWith(basePath)) {
+  // 배포 모드(production)이고 Vercel 환경이 아니며 '/'로 시작하고 '/hknu'로 시작하지 않는 로컬 경로인 경우 basePath 추가
+  if (isProd && !isVercel && path.startsWith('/') && !path.startsWith(basePath)) {
     return `${basePath}${path}`;
   }
   
