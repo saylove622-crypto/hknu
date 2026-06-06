@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { mediaItems } from '@/data/content';
 import styles from './Media.module.css';
+import { getAssetPath } from '@/lib/utils';
 
 function PlayIcon() {
   return (
@@ -60,7 +61,7 @@ function MediaItem({ item }) {
           {item.src && (
             <img
               ref={imgRef}
-              src={item.src}
+              src={getAssetPath(item.src)}
               alt={item.label}
               className={styles.mediaImage}
               style={showImage ? {} : { display: 'none' }}
@@ -87,7 +88,7 @@ function MediaItem({ item }) {
           {item.src && (
             <img
               ref={imgRef}
-              src={item.src}
+              src={getAssetPath(item.src)}
               alt={item.label}
               className={styles.mediaImage}
               style={showImage ? {} : { display: 'none' }}

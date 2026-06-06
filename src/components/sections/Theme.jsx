@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { themes } from '@/data/content';
 import styles from './Theme.module.css';
 
+import { getAssetPath } from '@/lib/utils';
+
 gsap.registerPlugin(ScrollTrigger);
 
 function StarField({ count = 60 }) {
@@ -143,7 +145,7 @@ export default function Theme() {
       {/* 배경 사진 (저채도 + 저투명도) */}
       <div className={styles.bgImageWrap} ref={bgImgRef}>
         <img
-          src="/images/theme/bg-forest.jpg"
+          src={getAssetPath('/images/theme/bg-forest.jpg')}
           alt=""
           className={styles.bgImageEl}
           aria-hidden="true"

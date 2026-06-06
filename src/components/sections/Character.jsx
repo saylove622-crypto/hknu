@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { characters } from '@/data/content';
+import { getAssetPath } from '@/lib/utils';
 import styles from './Character.module.css';
 import CharacterDialog from '@/components/CharacterDialog';
 
@@ -142,7 +143,7 @@ export default function Character() {
                     data-label={`${activeChar.name}`}
                   >
                     <img
-                      src={`/images/characters/${activeChar.id === 'amara-naomi' ? 'sis' : activeChar.id}.png`}
+                      src={getAssetPath(`/images/characters/${activeChar.id === 'amara-naomi' ? 'sis' : activeChar.id}.png`)}
                       alt={activeChar.name}
                       className={styles.charImage}
                     />
@@ -175,7 +176,7 @@ export default function Character() {
               >
                 <div className={styles.profileCircle}>
                   <img
-                    src={`/images/characters/${char.id === 'amara-naomi' ? 'sis' : char.id}.png`}
+                    src={getAssetPath(`/images/characters/${char.id === 'amara-naomi' ? 'sis' : char.id}.png`)}
                     alt={char.name}
                     className={styles.profileBtnImage}
                   />

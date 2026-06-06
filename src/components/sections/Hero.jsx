@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getLenis } from '@/lib/lenis';
 import styles from './Hero.module.css';
 
+import { getAssetPath } from '@/lib/utils';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const TITLE = '지구 끝의 온실';
@@ -197,7 +199,7 @@ export default function Hero() {
       {/* ── 레이어 1: bg.jpg (줌) ── */}
       <div className={styles.bgLayer} ref={bgLayerRef}>
         <img
-          src="/images/hero/bg.jpg"
+          src={getAssetPath('/images/hero/bg.jpg')}
           alt=""
           className={styles.bgImage}
           aria-hidden="true"
@@ -235,7 +237,7 @@ export default function Hero() {
       {/* ── 레이어 3: 전경 식물 (fg.png) ── */}
       <div className={styles.fgLayer} ref={fgLayerRef}>
         <img
-          src="/images/hero/fg.png"
+          src={getAssetPath('/images/hero/fg.png')}
           alt=""
           className={styles.fgImage}
           aria-hidden="true"

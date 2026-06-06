@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { getAssetPath } from '@/lib/utils';
 
 export default function Book3D() {
   const containerRef = useRef(null);
@@ -33,7 +34,7 @@ export default function Book3D() {
     const textureLoader = new THREE.TextureLoader();
     
     // Load cover texture
-    const coverTexture = textureLoader.load('/book-cover.jpg');
+    const coverTexture = textureLoader.load(getAssetPath('/book-cover.jpg'));
     coverTexture.colorSpace = THREE.SRGBColorSpace;
     coverTexture.minFilter = THREE.LinearFilter;
 
@@ -43,7 +44,7 @@ export default function Book3D() {
     const bookDepth = 0.35;
 
     // Load spine texture with horizontal centering and aspect ratio correction
-    const spineTexture = textureLoader.load('/book-spine.png', (tex) => {
+    const spineTexture = textureLoader.load(getAssetPath('/book-spine.png'), (tex) => {
       const imgWidth = tex.image.width;
       const imgHeight = tex.image.height;
       const faceAspect = bookDepth / bookHeight;
