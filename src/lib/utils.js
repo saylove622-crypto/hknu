@@ -10,8 +10,8 @@ export function getAssetPath(path) {
   const isProd = process.env.NODE_ENV === 'production';
   const basePath = '/hknu';
   
-  // '/'로 시작하고 '/hknu'로 시작하지 않는 로컬 경로인 경우 basePath 추가
-  if (path.startsWith('/') && !path.startsWith(basePath)) {
+  // 배포 모드(production)이고 '/'로 시작하고 '/hknu'로 시작하지 않는 로컬 경로인 경우 basePath 추가
+  if (isProd && path.startsWith('/') && !path.startsWith(basePath)) {
     return `${basePath}${path}`;
   }
   
