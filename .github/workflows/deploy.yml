@@ -1,0 +1,37 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # main 브랜치에 푸시될 때 작동합니다.
+  workflow_dispatch: # 수동 실행도 가능하게 설정합니다.
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies 🔧
+        run: npm ci
+
+      - name: Build 🏗️
+        run: npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: out # Next.js static export 결과물이 저장되는 폴더
+          branch: gh-pages # 배포될 브랜치
+          clean: true
