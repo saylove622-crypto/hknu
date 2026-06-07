@@ -7,12 +7,13 @@ export function getAssetPath(path) {
     return path;
   }
   
-  const isProd = process.env.NODE_ENV === 'production';
-  const isVercel = process.env.VERCEL === '1';
+  // GITHUB_ACTIONS 환경변수는 GitHub Actions에서만 'true'로 설정되며,
+  // Vercel 및 로칼 환경에서는 undefined입니다.
+  const isGitHubActions = process.env.GITHUB_ACTIONS === 'true';
   const basePath = '/hknu';
   
-  // 배포 모드(production)이고 Vercel 환경이 아니며 '/'로 시작하고 '/hknu'로 시작하지 않는 로컬 경로인 경우 basePath 추가
-  if (isProd && !isVercel && path.startsWith('/') && !path.startsWith(basePath)) {
+  // GitHub Actions(GitHub Pages) 배포 환경에서 '/'(로컬 실제 콘텐츠 경로))로 시작하고 '/hknu'로 시작하지 않는 경우 basePath 추가
+  if (isGitHubActions && path.startsWith('/') && !path.startsWith(basePath)) {
     return `${basePath}${path}`;
   }
   
