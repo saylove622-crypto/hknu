@@ -124,29 +124,47 @@ export default function Character() {
         {/* ── 배경 그라디언트 ── */}
         <div className={styles.bgOverlay} aria-hidden="true" />
 
-        {/* ── 좌측: 에라 토글 ── */}
+        {/* ── 좌측: 반원 타임라인 스위치 ── */}
         <aside className={styles.eraToggle} aria-label="시대 선택">
           <span className={styles.eraToggleLabel}>TIME</span>
 
-          <button
-            className={`${styles.eraBtn} ${era === 'dust' ? styles.eraBtnOn : ''}`}
-            onClick={() => handleEraChange('dust')}
-            aria-pressed={era === 'dust'}
-            data-cursor-hover
-          >
-            <span className={styles.eraBtnTxt}>더스트<br />시대</span>
-          </button>
+          <div className={styles.eraSwitchBox}>
+            {/* 시대 라벨 (더스트) */}
+            <span
+              className={`${styles.eraLbl} ${styles.eraLblDust} ${era === 'dust' ? styles.eraLblOn : ''}`}
+              onClick={() => handleEraChange('dust')}
+              data-cursor-hover
+            >
+              더스트<br/>시대
+            </span>
 
-          <div className={styles.eraSep} />
+            <div className={styles.eraSwitchTrack}>
+              {/* 반원 SVG 트랙 */}
+              <svg viewBox="0 0 60 120" className={styles.eraSwitchSvg}>
+                <path d="M 58 10 A 50 50 0 0 0 58 110" fill="none" stroke="rgba(245,240,232,0.15)" strokeWidth="1.5" strokeDasharray="3 4"/>
+              </svg>
+              
+              {/* 회전하는 손잡이 (Knob) 래퍼 - CSS transform으로 회전 */}
+              <div
+                className={`${styles.eraKnobWrap} ${era === 'post' ? styles.eraKnobWrapPost : ''}`}
+                onClick={() => handleEraChange(era === 'dust' ? 'post' : 'dust')}
+                data-cursor-hover
+              >
+                <div className={styles.eraKnob}>
+                  <div className={styles.eraKnobInner} />
+                </div>
+              </div>
+            </div>
 
-          <button
-            className={`${styles.eraBtn} ${era === 'post' ? styles.eraBtnOn : ''}`}
-            onClick={() => handleEraChange('post')}
-            aria-pressed={era === 'post'}
-            data-cursor-hover
-          >
-            <span className={styles.eraBtnTxt}>현재<br />시대</span>
-          </button>
+            {/* 시대 라벨 (현재) */}
+            <span
+              className={`${styles.eraLbl} ${styles.eraLblPost} ${era === 'post' ? styles.eraLblOn : ''}`}
+              onClick={() => handleEraChange('post')}
+              data-cursor-hover
+            >
+              현재<br/>시대
+            </span>
+          </div>
         </aside>
 
         {/* ── 섹션 상단 라벨 ── */}

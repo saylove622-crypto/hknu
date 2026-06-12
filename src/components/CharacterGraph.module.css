@@ -70,7 +70,8 @@
   justify-content: center;
   gap: 1px;
   transition: transform 0.25s ease, background 0.3s ease;
-  background: transparent;
+  background: var(--nc, #4FC3F7);
+  border: 1.5px solid #FFFFFF;
 }
 
 .nodeOn:hover .nodeCore {
@@ -79,23 +80,20 @@
 
 /* selected state */
 .nodeSel .nodeCore {
-  background: rgba(79, 195, 247, 0.10);
+  box-shadow: 0 0 16px var(--nc, #4FC3F7);
 }
 
 /* ── 노드 이름 라벨 ── */
 .nodeLbl {
   font-family: var(--font-body-kr);
-  font-size: 8.5px;
-  font-weight: 400;
-  color: var(--nc, #4FC3F7);
+  font-size: 11px;
+  font-weight: 600;
+  color: #0A0E2A;
   text-align: center;
-  line-height: 1.25;
+  line-height: 1.2;
   pointer-events: none;
-  /* 배경과 분리되도록 그림자 */
-  text-shadow:
-    0 0 10px rgba(0,0,0,1),
-    0 0 6px rgba(0,0,0,1),
-    0 2px 4px rgba(0,0,0,0.9);
+  /* 텍스트가 잘 보이도록 약간의 밝은 그림자 추가 */
+  text-shadow: 0 1px 2px rgba(255,255,255,0.4);
   white-space: nowrap;
 }
 

@@ -27,20 +27,20 @@
 }
 
 /* ══════════════════════════════
-   좌측 에라 토글 패널
+   좌측 타임라인 롤링 스위치
 ══════════════════════════════ */
 .eraToggle {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 62px;
+  width: 72px; /* 폭을 약간 늘림 */
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 16px;
   border-right: 1px solid var(--color-line);
   background: rgba(8, 12, 30, 0.55);
   backdrop-filter: blur(12px);
@@ -54,50 +54,107 @@
   text-transform: uppercase;
   color: var(--color-glow-blue);
   opacity: 0.35;
-  margin-bottom: 8px;
   writing-mode: vertical-rl;
   text-orientation: mixed;
 }
 
-.eraBtn {
-  background: none;
-  border: 1px solid rgba(245, 240, 232, 0.08);
-  width: 42px;
-  padding: 10px 6px;
-  cursor: none;
-  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+.eraSwitchBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  width: 100%;
 }
 
-.eraBtn:hover {
-  border-color: rgba(79, 195, 247, 0.2);
-}
-
-.eraBtnOn {
-  border-color: var(--color-glow-blue) !important;
-  background: rgba(79, 195, 247, 0.07);
-  box-shadow: 0 0 14px rgba(79, 195, 247, 0.12);
-}
-
-.eraBtnTxt {
+.eraLbl {
   font-family: var(--font-body-kr);
   font-size: 10px;
   font-weight: 300;
-  line-height: 1.5;
-  color: rgba(184, 176, 200, 0.6);
-  display: block;
+  line-height: 1.4;
+  color: rgba(184, 176, 200, 0.3);
   text-align: center;
-  transition: color 0.3s ease;
+  cursor: none;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+  z-index: 2;
 }
 
-.eraBtnOn .eraBtnTxt {
+.eraLblOn {
   color: var(--color-glow-blue);
+  font-weight: 500;
+  text-shadow: 0 0 10px rgba(79, 195, 247, 0.4);
 }
 
-.eraSep {
-  width: 22px;
-  height: 1px;
-  background: rgba(245, 240, 232, 0.1);
-  margin: 2px 0;
+.eraSwitchTrack {
+  position: relative;
+  width: 60px;
+  height: 120px;
+  overflow: hidden; 
+}
+
+.eraSwitchSvg {
+  position: absolute;
+  top: 0;
+  right: -2px; 
+  width: 60px;
+  height: 120px;
+  z-index: 1;
+}
+
+/* 롤링 손잡이 래퍼: 회전축을 반원의 중심(우측)에 둡니다. */
+.eraKnobWrap {
+  position: absolute;
+  top: 60px; /* SVG 중심 y: 60 */
+  right: 2px;  /* SVG 중심 x: 58 (width 60 - 2) */
+  width: 50px; /* 반지름 50 */
+  height: 0;
+  /* 더스트 시대 각도: 상단으로 회전 */
+  transform: rotate(-60deg);
+  transform-origin: right center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 3;
+  cursor: none;
+}
+
+/* 현재 시대 각도: 하단으로 회전 */
+.eraKnobWrapPost {
+  transform: rotate(60deg);
+}
+
+/* 실제 손잡이 (왼쪽 끝에 배치) */
+.eraKnob {
+  position: absolute;
+  left: -8px; /* 손잡이를 선 위에 정확히 올리기 위해 조정 */
+  top: -10px; /* 높이의 절반 위로 */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(8, 12, 30, 0.9);
+  border: 1.5px solid rgba(79, 195, 247, 0.4);
+  box-shadow: 0 0 12px rgba(79, 195, 247, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.eraKnobWrap:hover .eraKnob {
+  border-color: rgba(79, 195, 247, 0.8);
+  box-shadow: 0 0 16px rgba(79, 195, 247, 0.4);
+}
+
+/* 손잡이 내부 도트, 시대별로 회전(굴러가는 느낌 추가) */
+.eraKnobInner {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-glow-blue);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: rotate(0deg) scale(1);
+}
+
+.eraKnobWrapPost .eraKnobInner {
+  transform: rotate(360deg) scale(1.1);
 }
 
 /* ══════════════════════════════
@@ -106,7 +163,7 @@
 .sectionLabel {
   position: absolute;
   top: 24px;
-  left: 78px;
+  left: 88px; /* eraToggle width 72px 반영 */
   right: 24px;
   display: flex;
   align-items: center;
@@ -145,7 +202,7 @@
 .graphArea {
   position: absolute;
   top: 0;
-  left: 62px;
+  left: 72px; /* eraToggle width 72px 반영 */
   right: 0;
   bottom: 0;
   z-index: 1;
@@ -173,7 +230,7 @@
 .detailPanel {
   position: absolute;
   bottom: 0;
-  left: 62px;
+  left: 72px; /* eraToggle width 72px 반영 */
   right: 0;
   z-index: 20;
   background: rgba(8, 12, 30, 0.93);

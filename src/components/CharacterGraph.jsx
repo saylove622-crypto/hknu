@@ -175,21 +175,7 @@ export default function CharacterGraph({ era, selectedId, onNodeClick }) {
       svg.appendChild(el2);
     });
 
-    /* 노드 rough 아웃라인 */
-    characterGraph.nodes.forEach((node) => {
-      const active = node.era.includes(era);
-      const p  = px(node);
-      const el2 = rc.circle(p.x, p.y, 56, {
-        roughness:   active ? 2.6 : 1.5,
-        strokeWidth: active ? 1.6 : 0.35,
-        stroke:      active ? node.color : 'rgba(245,240,232,0.07)',
-        fill:        active ? `${node.color}16` : 'transparent',
-        fillStyle:   'solid',
-        seed:        node.id.charCodeAt(0) * 11 % 97,
-      });
-      el2.style.opacity = active ? '1' : '0.3';
-      svg.appendChild(el2);
-    });
+    /* 노드 아웃라인은 이제 CSS로 처리하므로 rough.js에서 제외합니다. */
   }, [era]);
 
   useEffect(() => { drawGraph(); }, [drawGraph]);
@@ -269,7 +255,7 @@ export default function CharacterGraph({ era, selectedId, onNodeClick }) {
 
       {/* 범례 */}
       <div className={styles.legend} aria-hidden="true">
-        {Object.entries({ '연애/특별': '#E91E63', '갈등': '#FF5252', '가족': '#80DEEA', '전수': '#4FC3F7', '협력': '#A5D6A7', '유대': 'rgba(245,240,232,0.45)' }).map(([k, v]) => (
+        {Object.entries({ '???': '#E91E63', '갈등': '#FF5252', '가족': '#80DEEA', '제자': '#4FC3F7', '협력': '#A5D6A7', '유대': 'rgba(245,240,232,0.45)' }).map(([k, v]) => (
           <div key={k} className={styles.legendItem}>
             <span className={styles.legendLine} style={{ background: v }} />
             <span className={styles.legendLabel}>{k}</span>
