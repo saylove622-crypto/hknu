@@ -1,0 +1,176 @@
+/* ══════════════════════════════════════
+   CharacterGraph — 인물관계도 그래프
+   ══════════════════════════════════════ */
+
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ── three.js background canvas ── */
+.bgCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── CSS 3D wrap (perspective set by parent or inline) ── */
+.graphWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  perspective: 700px;
+}
+
+/* ── rough.js SVG layer ── */
+.svgLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* ══════════════════════
+   Node button
+══════════════════════ */
+.node {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  background: transparent;
+  border: none;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 5;
+  /* transform은 인라인 스타일로 translateZ 포함 */
+}
+
+.nodeOn  { opacity: 1;    pointer-events: auto;  transition: opacity 0.5s ease; }
+.nodeOff { opacity: 0.08; pointer-events: none; transition: opacity 0.5s ease; }
+
+/* ── 노드 내부 코어 ── */
+.nodeCore {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  transition: transform 0.25s ease, background 0.3s ease;
+  background: transparent;
+}
+
+.nodeOn:hover .nodeCore {
+  transform: scale(1.18);
+}
+
+/* selected state */
+.nodeSel .nodeCore {
+  background: rgba(79, 195, 247, 0.10);
+}
+
+/* ── 노드 이름 라벨 ── */
+.nodeLbl {
+  font-family: var(--font-body-kr);
+  font-size: 8.5px;
+  font-weight: 400;
+  color: var(--nc, #4FC3F7);
+  text-align: center;
+  line-height: 1.25;
+  pointer-events: none;
+  /* 배경과 분리되도록 그림자 */
+  text-shadow:
+    0 0 10px rgba(0,0,0,1),
+    0 0 6px rgba(0,0,0,1),
+    0 2px 4px rgba(0,0,0,0.9);
+  white-space: nowrap;
+}
+
+/* ── selected glow ring ── */
+.nodeRing {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--nc, #4FC3F7);
+  box-shadow:
+    0 0 8px var(--nc, #4FC3F7),
+    inset 0 0 8px rgba(79,195,247,0.06);
+  animation: ringPulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+/* ── hover tooltip (aria-label 사용) ── */
+.nodeOn::before {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: -0.015em;
+  color: var(--nc, #4FC3F7);
+  background: rgba(10, 14, 42, 0.92);
+  border: 1px solid rgba(79,195,247,0.2);
+  padding: 3px 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.nodeOn:hover::before { opacity: 1; }
+
+/* ══════════════════════
+   범례
+══════════════════════ */
+.legend {
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legendLine {
+  display: inline-block;
+  width: 20px;
+  height: 1.5px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.legendLabel {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: -0.015em;
+  color: rgba(245, 240, 232, 0.35);
+}
