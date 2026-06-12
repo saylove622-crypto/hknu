@@ -1,0 +1,341 @@
+/* ════════════════════════════════════
+   Author Section
+   ════════════════════════════════════ */
+
+.section {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    var(--color-night)    0%,
+    var(--color-midnight) 40%,
+    var(--color-magenta)  70%,
+    var(--color-midnight) 90%,
+    var(--color-night)   100%
+  );
+}
+
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(79, 195, 247, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 30%, rgba(107, 30, 92, 0.10) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 메인 컨테이너: 좌(5col) / 우(7col) ── */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--side-margin);
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: calc(var(--gutter) * 3);
+  align-items: start;
+}
+
+/* ════════════════════════════════════
+   좌: 프로필 패널
+   ════════════════════════════════════ */
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  will-change: transform, opacity;
+}
+
+/* 섹션 라벨 */
+.sectionLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+.labelLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-glow-blue), transparent);
+}
+
+/* 이름 블록 */
+.nameBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.nameKr {
+  font-family: var(--font-display-kr);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+.nameEn {
+  font-family: var(--font-display-en);
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--color-text-mute);
+}
+
+/* 프로필 이미지 placeholder */
+.profileFrame {
+  width: 200px;
+  height: 260px;
+  border: 1px dashed rgba(79, 195, 247, 0.30);
+  background: rgba(10, 14, 42, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.profileFrame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed rgba(79, 195, 247, 0.10);
+  pointer-events: none;
+}
+.profileInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.profileLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(79, 195, 247, 0.35);
+}
+.profileSub {
+  font-family: var(--font-body-kr);
+  font-size: 10px;
+  color: rgba(245, 240, 232, 0.2);
+  letter-spacing: 0;
+}
+
+/* 소속 */
+.publisherRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.publisherLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-text-mute);
+  opacity: 0.5;
+}
+.publisherName {
+  font-family: var(--font-body-kr);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-primary);
+  opacity: 0.75;
+}
+
+/* ════════════════════════════════════
+   우: 어워드 + 티커
+   ════════════════════════════════════ */
+.rightPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  will-change: transform, opacity;
+}
+
+/* ── Award ── */
+.awardBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.awardLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.awardLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+.awardLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-glow-blue), transparent);
+}
+
+.awardList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+.awardItem {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+.awardYear {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: -0.015em;
+  color: var(--color-glow-blue);
+  opacity: 0.6;
+}
+.awardTitle {
+  font-family: var(--font-body-kr);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  opacity: 0.85;
+}
+
+/* ── Books 티커 ── */
+.booksBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+.booksLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.booksLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+.booksLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-glow-blue), transparent);
+}
+
+/* 티커 */
+.tickerWrapper {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+.tickerTrack {
+  display: flex;
+  gap: 16px;
+  animation: tickerScroll 28s linear infinite;
+  width: max-content;
+}
+.tickerTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 개별 책 카드 */
+.bookCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.bookCoverFrame {
+  width: 80px;
+  height: 112px;
+  border: 1px dashed rgba(245, 240, 232, 0.18);
+  background: rgba(10, 14, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: border-color 0.3s ease;
+}
+.bookCard:hover .bookCoverFrame {
+  border-color: rgba(79, 195, 247, 0.35);
+}
+.bookCoverLabel {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.15);
+}
+.bookMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  max-width: 80px;
+}
+.bookYear {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: -0.015em;
+  color: var(--color-glow-blue);
+  opacity: 0.55;
+}
+.bookTitle {
+  font-family: var(--font-body-kr);
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--color-text-primary);
+  opacity: 0.65;
+  text-align: center;
+  word-break: keep-all;
+  line-height: 1.4;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 860px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  .section {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0 60px;
+  }
+  .profileFrame {
+    width: 160px;
+    height: 210px;
+  }
+}

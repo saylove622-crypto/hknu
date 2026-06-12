@@ -151,6 +151,17 @@ export default function Hero() {
 
       window.addEventListener('wheel', onWheel, { passive: false, capture: true });
 
+      // ── hero:skip 이벤트 수신 (네비 클릭 시 즉시 인트로 종료) ──
+      const onHeroSkip = () => {
+        if (phaseRef.current === 'done') return;
+        phaseRef.current = 'done';
+        gsap.killTweensOf([quoteOverRef.current, ...quoteRefs.current, zoomState]);
+        gsap.to(quoteOverRef.current, { opacity: 0, duration: 0.3 });
+        const lenis = getLenis();
+        if (lenis) lenis.start();
+      };
+      window.addEventListener('hero:skip', onHeroSkip);
+
       // 터치 지원
       let ty0 = 0;
       const onTS = (e) => { ty0 = e.touches[0].clientY; };
@@ -179,6 +190,7 @@ export default function Hero() {
         window.removeEventListener('wheel', onWheel, { capture: true });
         window.removeEventListener('touchstart', onTS);
         window.removeEventListener('touchend',   onTE);
+        window.removeEventListener('hero:skip', onHeroSkip);
         const l = getLenis(); if (l) l.start();
       };
     }, sectionRef);

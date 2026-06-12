@@ -1,10 +1,12 @@
 .section {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 700px;
   display: flex;
   align-items: center;
   background: linear-gradient(180deg, var(--color-night) 0%, var(--color-midnight) 50%, var(--color-night) 100%);
-  padding: 120px var(--side-margin);
+  padding: 80px var(--side-margin);
+  overflow: hidden;
 }
 
 .container {
@@ -20,13 +22,35 @@
 /* === 책 영역 === */
 .bookSide {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 16px;
+  cursor: none;
+  position: relative;
+}
+
+/* hover 시 클릭 힌트 노출 */
+.bookClickHint {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.bookSide:hover .bookClickHint {
+  opacity: 1;
+}
+.bookClickHintText {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-glow-blue);
+  opacity: 0.75;
 }
 
 .bookInner {
   width: 100%;
   max-width: 340px;
-  height: 480px;
+  height: min(480px, 58vh);
   position: relative;
   margin: 0 auto;
 }
@@ -208,9 +232,16 @@
   opacity: 0.5;
 }
 
-@media (max-width: 1279px) {
+/* 860px 이하에서만 단일 컬럼 — 1200px 뷰포트는 2컬럼 유지 */
+@media (max-width: 860px) {
   .container {
     grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .section {
+    height: auto;
+    min-height: 100vh;
+    padding: 120px var(--side-margin);
   }
   .bookSide {
     order: 2;

@@ -9,8 +9,10 @@ import Cursor from '@/components/Cursor';
 import Navigator from '@/components/Navigator';
 import Hero from '@/components/sections/Hero';
 import Overview from '@/components/sections/Overview';
+import Author from '@/components/sections/Author';
 import Character from '@/components/sections/Character';
 import Theme from '@/components/sections/Theme';
+import Setting from '@/components/sections/Setting';
 import Media from '@/components/sections/Media';
 import End from '@/components/sections/End';
 
@@ -18,11 +20,11 @@ import styles from './page.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 섹션 순서
-const SECTIONS = ['hero', 'overview', 'character', 'theme', 'media', 'end'];
+// 섹션 순서 (hero는 IntersectionObserver 대상에서 제외 — 로고 클릭으로만 접근)
+const SECTIONS = ['overview', 'author', 'character', 'theme', 'setting', 'media', 'end'];
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState('overview');
   const [isEntered, setIsEntered] = useState(false);
   const mainRef = useRef(null);
 
@@ -91,8 +93,10 @@ export default function Home() {
       >
         <Hero />
         <Overview />
+        <Author />
         <Character />
         <Theme />
+        <Setting />
         <Media />
         <End />
       </main>

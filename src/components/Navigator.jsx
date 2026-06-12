@@ -36,18 +36,37 @@ export default function Navigator({ activeSection }) {
     glow.style.transform = `translateX(${x}px)`;
   }, [activeIndex]);
 
+  // 네비 클릭: hero:skip 이벤트 발행 후 해당 섹션으로 스크롤
   const handleNavClick = (item) => {
+    // 인트로 재생 중이어도 즉시 스킵하고 이동
+    window.dispatchEvent(new CustomEvent('hero:skip'));
     const sectionId = item.sections[0];
     const el = document.getElementById(sectionId);
-    if (el) scrollTo(el);
+    if (el) {
+      // 약간의 딜레이 후 스크롤 (Lenis 재활성화 대기)
+      setTimeout(() => scrollTo(el), 80);
+    }
+  };
+
+  // 로고 클릭: hero 섹션으로 이동 (인트로 재실행)
+  const handleLogoClick = () => {
+    const hero = document.getElementById('hero');
+    if (hero) scrollTo(hero);
   };
 
   return (
     <nav className={styles.nav} aria-label="Site navigation">
       <div className={styles.inner}>
-        {/* Logo */}
+        {/* Logo — 클릭 시 hero로 이동 */}
         <div className={styles.logo}>
-          <span className={styles.logoText}>지구 끝의 온실</span>
+          <button
+            className={styles.logoBtn}
+            onClick={handleLogoClick}
+            data-cursor-hover
+            aria-label="홈(Hero)으로 이동"
+          >
+            <span className={styles.logoText}>지구 끝의 온실</span>
+          </button>
         </div>
 
         {/* Nav rail */}

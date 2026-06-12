@@ -97,6 +97,33 @@ export const mediaItems = [
   },
 ];
 
+// 작가 정보
+export const authorData = {
+  nameKr: '김초엽',
+  nameEn: 'Kim Cho Yeop',
+  publisher: '블러썸크리에이티브',
+  awards: [
+    { year: '2023', title: '제34회 은하상 최우수외국작가상' },
+    { year: '2021', title: '제62회 한국출판문화상 『사이보그가 되다』' },
+    { year: '2021', title: '제19회 한국여성지도자상 젊은지도자상' },
+    { year: '2020', title: '제11회 젊은작가상 「인지공간」' },
+    { year: '2019', title: '제43회 오늘의 작가상 「우리가 빛의 속도로 갈 수 없다면」' },
+    { year: '2017', title: '제2회 한국과학문학상 중단편부문 대상 「관내분실」' },
+  ],
+  books: [
+    { year: '2019', title: '원통 안의 소녀' },
+    { year: '2019', title: '우리가 빛의 속도로 갈 수 없다면' },
+    { year: '2021', title: '지구 끝의 온실' },
+    { year: '2021', title: '방금 떠나온 세계' },
+    { year: '2021', title: '행성어 서점' },
+    { year: '2021', title: '므레모사' },
+    { year: '2022', title: '책과 우연들' },
+    { year: '2023', title: '파견자들' },
+    { year: '2024', title: '아무튼, SF게임' },
+    { year: '2025', title: '양면의 조개껍데기' },
+  ],
+};
+
 export const siteConfig = {
   title: '지구 끝의 온실',
   titleEn: 'The Greenhouse at the End of the Earth',
@@ -104,10 +131,13 @@ export const siteConfig = {
   authorEn: 'Kim Cho-Yeob',
   buyUrl: 'https://product.kyobobook.co.kr/detail/S000001953324',
   trailerUrl: 'https://youtu.be/EKoZnvKJ7sQ',
+  // hero는 네비에 미포함 — 로고 클릭으로만 접근
   navItems: [
-    { label: 'HOME', sections: ['hero', 'overview'] },
-    { label: 'STORY', sections: ['character', 'theme'] },
-    { label: 'MEDIA', sections: ['media'] },
-    { label: 'END', sections: ['end'] },
+    { label: 'HOME',    sections: ['overview'] },
+    { label: 'AUTHOR',  sections: ['author'] },
+    { label: 'STORY',   sections: ['character', 'theme'] },
+    { label: 'SETTING', sections: ['setting'] },
+    { label: 'MEDIA',   sections: ['media'] },
+    { label: 'END',     sections: ['end'] },
   ],
 };

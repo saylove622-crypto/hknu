@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { scrollTo } from '@/lib/lenis';
 import styles from './Overview.module.css';
 
 const Book3D = dynamic(() => import('./Book3D'), {
@@ -88,10 +89,31 @@ export default function Overview() {
       aria-label="Overview — 작품 소개"
     >
       <div className={styles.container}>
-        {/* 좌: 책 3D 영역 */}
-        <div className={styles.bookSide} ref={bookRef} data-cursor-hover>
+        {/* 좌: 책 3D 영역 — 클릭 시 STORY 섹션으로 이동 */}
+        <div
+          className={styles.bookSide}
+          ref={bookRef}
+          data-cursor-hover
+          onClick={() => {
+            const el = document.getElementById('character');
+            if (el) scrollTo(el);
+          }}
+          title="Click to enter Story"
+          role="button"
+          tabIndex={0}
+          aria-label="캐릭터 스토리 섹션으로 이동"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              const el = document.getElementById('character');
+              if (el) scrollTo(el);
+            }
+          }}
+        >
           <div className={styles.bookInner}>
             <Book3D />
+          </div>
+          <div className={styles.bookClickHint}>
+            <span className={styles.bookClickHintText}>CLICK TO ENTER STORY →</span>
           </div>
         </div>
 
