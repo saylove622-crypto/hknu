@@ -232,7 +232,7 @@ export default function CharacterGraph({ era, selectedId, onNodeClick }) {
               style={{
                 left:      `calc(50% + ${node.pos.x}px)`,
                 top:       `calc(50% + ${node.pos.y}px)`,
-                transform: `translate(-50%, -50%) translateZ(${node.pos.z ?? 0}px)`,
+                transform: `translate(-50%, -50%) translateZ(0px)`,
                 '--nc':    node.color,
               }}
               onClick={() => active && onNodeClick(node)}

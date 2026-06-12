@@ -108,17 +108,17 @@
   right: 2px;  /* SVG 중심 x: 58 (width 60 - 2) */
   width: 50px; /* 반지름 50 */
   height: 0;
-  /* 더스트 시대 각도: 상단으로 회전 */
-  transform: rotate(-60deg);
+  /* 더스트 시대 각도: 상단으로 회전 (+60deg가 위쪽을 향함) */
+  transform: rotate(60deg);
   transform-origin: right center;
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 3;
   cursor: none;
 }
 
-/* 현재 시대 각도: 하단으로 회전 */
+/* 현재 시대 각도: 하단으로 회전 (-60deg가 아래쪽을 향함) */
 .eraKnobWrapPost {
-  transform: rotate(60deg);
+  transform: rotate(-60deg);
 }
 
 /* 실제 손잡이 (왼쪽 끝에 배치) */
